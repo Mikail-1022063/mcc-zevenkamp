@@ -20,8 +20,20 @@ import {
   CreditCard,
   Bell,
 } from "lucide-react";
+import { signOut } from "aws-amplify/auth";
+import { useNavigate } from "react-router-dom";
 
 export function SidebarUserMenu({ username, avatarUrl, email }) {
+  const navigate = useNavigate();
+
+  async function handleSignOut() {
+    await signOut();
+  }
+
+  const goToAccount = () => {
+    navigate("/account");
+  };
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -60,7 +72,10 @@ export function SidebarUserMenu({ username, avatarUrl, email }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={goToAccount}
+                className="cursor-pointer"
+              >
                 <BadgeCheck /> Account
               </DropdownMenuItem>
               <DropdownMenuItem>
@@ -71,7 +86,10 @@ export function SidebarUserMenu({ username, avatarUrl, email }) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={handleSignOut}
+            >
               <LogOut /> Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

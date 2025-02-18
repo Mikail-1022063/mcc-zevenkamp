@@ -6,21 +6,21 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { Home, Inbox, Calendar, Search, Settings } from "lucide-react";
+import { Home, HandCoins, UsersRound, Search, Settings } from "lucide-react";
 
 const menuItems = [
-  { title: "Home", url: "#", icon: Home },
-  { title: "Inbox", url: "#", icon: Inbox },
-  { title: "Calendar", url: "#", icon: Calendar },
-  { title: "Search", url: "#", icon: Search },
-  { title: "Settings", url: "#", icon: Settings },
+  { title: "Home", url: "/", icon: Home },
+  { title: "Betalingen", url: "#", icon: HandCoins },
+  { title: "Gebruikers", url: "#", icon: UsersRound },
+  { title: "Zoeken", url: "#", icon: Search },
+  { title: "Instellingen", url: "#", icon: Settings },
 ];
 
 export function SidebarMenuItems() {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>MCC Ledenadministratie</SidebarGroupLabel>
-      <SidebarGroupContent>
+      <SidebarGroupContent className="">
         <SidebarMenu>
           {menuItems.map((item) => (
             <SidebarMenuItem key={item.title}>
