@@ -24,8 +24,8 @@ test("renders all menu items", () => {
     </SidebarProvider>,
   );
   expect(screen.getByText(/Home/i)).toBeInTheDocument();
-  expect(screen.getByText(/Inbox/i)).toBeInTheDocument();
-  expect(screen.getByText(/Calendar/i)).toBeInTheDocument();
-  expect(screen.getByText(/Search/i)).toBeInTheDocument();
-  expect(screen.getByText(/Settings/i)).toBeInTheDocument();
+  expect(screen.getByText(/Betalingen/i)).toBeInTheDocument();
+  expect(screen.getByText(/Gebruikers/i)).toBeInTheDocument();
+  expect(screen.getByText(/Zoeken/i)).toBeInTheDocument();
+  expect(screen.getByText(/Instellingen/i)).toBeInTheDocument();
 });
