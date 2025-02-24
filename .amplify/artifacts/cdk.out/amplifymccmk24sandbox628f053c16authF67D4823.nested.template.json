@@ -18,6 +18,11 @@
         "AutoVerifiedAttributes": ["email"],
         "EmailVerificationMessage": "The verification code to your new account is {####}",
         "EmailVerificationSubject": "Verify your new account",
+        "LambdaConfig": {
+          "PostConfirmation": {
+            "Ref": "referencetoamplifymccmk24sandbox628f053c16functionNestedStackfunctionNestedStackResourceD357195COutputsamplifymccmk24sandbox628f053c16functionpostconfirmationlambda22A49DDFArn"
+          }
+        },
         "Policies": {
           "PasswordPolicy": {
             "MinimumLength": 8,
@@ -90,6 +95,24 @@
       "DeletionPolicy": "Delete",
       "Metadata": {
         "aws:cdk:path": "amplify-mcc-mk24-sandbox-628f053c16/auth/amplifyAuth/UserPool/Resource"
+      }
+    },
+    "amplifyAuthUserPoolPostConfirmationCognitoE7E727CF": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "referencetoamplifymccmk24sandbox628f053c16functionNestedStackfunctionNestedStackResourceD357195COutputsamplifymccmk24sandbox628f053c16functionpostconfirmationlambda22A49DDFArn"
+        },
+        "Principal": "cognito-idp.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": ["amplifyAuthUserPool4BA7F805", "Arn"]
+        }
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "amplify-mcc-mk24-sandbox-628f053c16/auth/amplifyAuth/UserPool/PostConfirmationCognito"
       }
     },
     "amplifyAuthUserPoolAppClient2626C6F8": {
@@ -315,7 +338,7 @@
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/02OvQ7CMAyEn4U9MVCGihF1YkGoiBmVxIDbNJaaFISivDuJUKHTnb/zXwHrcgurRfNyUulOGrpCOKDzqE++UZ1IwSUovlvyDOHscDgyG1Hd7M9PpjKE1s+jP9nrZMi/p+F5XbPBnU/XHn2CUVDTQ8gwN2aNUdToeBwURmFZI7Ru+Sw2UKbPW0ckhzFt6xHqr34Aj9mErdYAAAA="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/01PywrCMBD8Fu/pqvVQPEpPXqRUPEuarLptHpCkioT8uylS7Wlm58GwJWyrPWxW/OULIYdCUQfxhD6gPAcuBpaNaxT2bihYiBePrrFWsfpmfnwmtSI0YWn9laPMhMJ7Li/v1io8hLz20FlMTHHdSQ451aDT5D1Zw4hriFNyak+YEmvR29EJTMxYidD79bPcQZXf6T1R4cY8oRHaL34AsH6LresAAAA="
       },
       "Metadata": {
         "aws:cdk:path": "amplify-mcc-mk24-sandbox-628f053c16/auth/CDKMetadata/Default"
@@ -587,6 +610,11 @@
           ]
         }
       ]
+    }
+  },
+  "Parameters": {
+    "referencetoamplifymccmk24sandbox628f053c16functionNestedStackfunctionNestedStackResourceD357195COutputsamplifymccmk24sandbox628f053c16functionpostconfirmationlambda22A49DDFArn": {
+      "Type": "String"
     }
   },
   "Outputs": {

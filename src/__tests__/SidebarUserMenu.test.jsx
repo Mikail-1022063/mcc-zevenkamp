@@ -29,7 +29,7 @@ test("displays user menu with correct information", () => {
           avatarUrl=""
         />
       </SidebarProvider>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 
   expect(screen.getByText(/Test User/i)).toBeInTheDocument();

@@ -367,12 +367,46 @@
           {
             "attributeName": "id",
             "attributeType": "S"
+          },
+          {
+            "attributeName": "memberId",
+            "attributeType": "S"
           }
         ],
         "keySchema": [
           {
             "attributeName": "id",
             "keyType": "HASH"
+          }
+        ],
+        "globalSecondaryIndexes": [
+          {
+            "indexName": "gsi-Member.payments",
+            "keySchema": [
+              {
+                "attributeName": "memberId",
+                "keyType": "HASH"
+              }
+            ],
+            "projection": {
+              "projectionType": "ALL"
+            },
+            "provisionedThroughput": {
+              "Fn::If": [
+                "ShouldUsePayPerRequestBilling",
+                {
+                  "Ref": "AWS::NoValue"
+                },
+                {
+                  "ReadCapacityUnits": {
+                    "Ref": "DynamoDBModelTableReadIOPS"
+                  },
+                  "WriteCapacityUnits": {
+                    "Ref": "DynamoDBModelTableWriteIOPS"
+                  }
+                }
+              ]
+            }
           }
         ],
         "provisionedThroughput": {
@@ -1030,7 +1064,7 @@
         "FunctionVersion": "2018-05-29",
         "Name": "MutationcreatePaymentauth0Function",
         "RequestMappingTemplateS3Location": {
-          "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c8fb42418c1d0dbfd6b5e0c766dbaae496be1d2e63dbc80c0616baf7787fedd3.vtl"
+          "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/22e7a98716c909ad7dd78b37d5b81da0c9e959087fda95317cfc7623a9c0a669.vtl"
         },
         "ResponseMappingTemplate": "$util.toJson({})"
       },
@@ -1253,7 +1287,7 @@
           "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/1f5fed297da9c32ae3af922bf3a38ccf23b956078887d16891ec06c20c64722c.vtl"
         },
         "ResponseMappingTemplateS3Location": {
-          "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/1f66b360a148f6bb7f1a2a6c1da19b946870cc842499bd4ccf4ff1ec6c81d585.vtl"
+          "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/1138e951df945ae57d4cce095d0760e430acc59c9afdd09c839549b8204e8926.vtl"
         }
       },
       "DependsOn": ["PaymentDataSource"],
@@ -2169,6 +2203,16 @@
             ]
           ]
         }
+      }
+    },
+    "amplifymccmk24sandbox628f053c16dataamplifyDataPaymentPaymentDataSource07228FDAName": {
+      "Value": {
+        "Fn::GetAtt": ["PaymentDataSource", "Name"]
+      }
+    },
+    "amplifymccmk24sandbox628f053c16dataamplifyDataPaymentPaymentTableFBF01E53TableArn": {
+      "Value": {
+        "Fn::GetAtt": ["PaymentTable", "TableArn"]
       }
     }
   }

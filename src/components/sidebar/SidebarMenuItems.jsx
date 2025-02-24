@@ -10,8 +10,8 @@ import { Home, HandCoins, UsersRound, Search, Settings } from "lucide-react";
 
 const menuItems = [
   { title: "Home", url: "/", icon: Home },
+  { title: "Leden", url: "/leden", icon: UsersRound },
   { title: "Betalingen", url: "#", icon: HandCoins },
-  { title: "Gebruikers", url: "#", icon: UsersRound },
   { title: "Zoeken", url: "#", icon: Search },
   { title: "Instellingen", url: "#", icon: Settings },
 ];

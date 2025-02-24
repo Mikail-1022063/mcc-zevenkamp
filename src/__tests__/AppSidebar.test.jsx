@@ -30,7 +30,7 @@ describe("AppSidebar Component", () => {
             isDarkMode={false}
           />
         </SidebarProvider>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText(/Home/i)).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe("AppSidebar Component", () => {
             isDarkMode={false}
           />
         </SidebarProvider>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText(/Test User/i)).toBeInTheDocument();

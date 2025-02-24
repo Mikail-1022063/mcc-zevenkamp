@@ -30,6 +30,10 @@
         "groups"
       ]
     },
+    "AWS::Amplify::Function": {
+      "version": "1",
+      "stackOutputs": ["definedFunctions"]
+    },
     "AWS::Amplify::GraphQL": {
       "version": "1",
       "stackOutputs": [
@@ -133,6 +137,23 @@
     "groups": {
       "Value": "[]"
     },
+    "definedFunctions": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "[\"",
+            {
+              "Fn::GetAtt": [
+                "function1351588B",
+                "Outputs.amplifymccmk24sandbox628f053c16functionpostconfirmationlambda22A49DDFRef"
+              ]
+            },
+            "\"]"
+          ]
+        ]
+      }
+    },
     "awsAppsyncApiId": {
       "Value": {
         "Fn::GetAtt": [
@@ -202,6 +223,14 @@
     "auth179371D7": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
+        "Parameters": {
+          "referencetoamplifymccmk24sandbox628f053c16functionNestedStackfunctionNestedStackResourceD357195COutputsamplifymccmk24sandbox628f053c16functionpostconfirmationlambda22A49DDFArn": {
+            "Fn::GetAtt": [
+              "function1351588B",
+              "Outputs.amplifymccmk24sandbox628f053c16functionpostconfirmationlambda22A49DDFArn"
+            ]
+          }
+        },
         "Tags": [
           {
             "Key": "amplify:deployment-type",
@@ -228,7 +257,7 @@
               {
                 "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
               },
-              "/bf4952c43e692304af0f1305488f6ad0b33cfb315682abfb1c3c98edfbf2458f.json"
+              "/3bbb2d95d3f65d8a4107e517a5e69a5885eef815ec271dd038b6552bfb6be1e0.json"
             ]
           ]
         }
@@ -238,6 +267,48 @@
       "Metadata": {
         "aws:cdk:path": "amplify-mcc-mk24-sandbox-628f053c16/auth.NestedStack/auth.NestedStackResource",
         "aws:asset:path": "amplifymccmk24sandbox628f053c16authF67D4823.nested.template.json",
+        "aws:asset:property": "TemplateURL"
+      }
+    },
+    "function1351588B": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "amplify:deployment-type",
+            "Value": "sandbox"
+          },
+          {
+            "Key": "created-by",
+            "Value": "amplify"
+          }
+        ],
+        "TemplateURL": {
+          "Fn::Join": [
+            "",
+            [
+              "https://s3.",
+              {
+                "Ref": "AWS::Region"
+              },
+              ".",
+              {
+                "Ref": "AWS::URLSuffix"
+              },
+              "/",
+              {
+                "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+              },
+              "/94480e3b6671f6251ed53646590098797f8731167149511c5605248d911b746f.json"
+            ]
+          ]
+        }
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "amplify-mcc-mk24-sandbox-628f053c16/function.NestedStack/function.NestedStackResource",
+        "aws:asset:path": "amplifymccmk24sandbox628f053c16function62C86291.nested.template.json",
         "aws:asset:property": "TemplateURL"
       }
     },
@@ -268,6 +339,12 @@
               "auth179371D7",
               "Outputs.amplifymccmk24sandbox628f053c16authamplifyAuthIdentityPool5D348695Ref"
             ]
+          },
+          "referencetoamplifymccmk24sandbox628f053c16functionNestedStackfunctionNestedStackResourceD357195COutputsamplifymccmk24sandbox628f053c16functionpostconfirmationlambdaServiceRole3EF869B8Ref": {
+            "Fn::GetAtt": [
+              "function1351588B",
+              "Outputs.amplifymccmk24sandbox628f053c16functionpostconfirmationlambdaServiceRole3EF869B8Ref"
+            ]
           }
         },
         "Tags": [
@@ -296,7 +373,7 @@
               {
                 "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
               },
-              "/fa3b586f9a7b7c480e75daa8685506d4451dc478c8ef62d9b399546d622de328.json"
+              "/052dc5e4a7ac39d926f8719fbbf3b71de0cdfbda9bc733b4535c56fdfc4506eb.json"
             ]
           ]
         }

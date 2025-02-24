@@ -1,0 +1,427 @@
+type Member @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  name: String
+  address: String
+  email: String
+  phone: String
+  iban: String
+  status: MemberStatus
+  machtiging: Boolean
+  payments(
+    filter: ModelPaymentFilterInput
+    sortDirection: ModelSortDirection
+    limit: Int
+    nextToken: String
+  ): ModelPaymentConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type Payment @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  memberId: ID
+  amount: Float
+  date: String
+  member: Member
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+enum MemberStatus {
+  Active
+  OnHold
+  Inactive
+}
+
+input AmplifyAIConversationTurnErrorInput {
+  errorType: String!
+  message: String!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelMemberConnection @aws_iam @aws_cognito_user_pools {
+  items: [Member]!
+  nextToken: String
+}
+
+input ModelMemberStatusInput {
+  eq: MemberStatus
+  ne: MemberStatus
+}
+
+input ModelMemberFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  address: ModelStringInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  iban: ModelStringInput
+  status: ModelMemberStatusInput
+  machtiging: ModelBooleanInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelMemberFilterInput]
+  or: [ModelMemberFilterInput]
+  not: ModelMemberFilterInput
+  owner: ModelStringInput
+}
+
+type Query {
+  getMember(id: ID!): Member @aws_iam @aws_cognito_user_pools
+  listMembers(
+    id: ID
+    filter: ModelMemberFilterInput
+    limit: Int
+    nextToken: String
+    sortDirection: ModelSortDirection
+  ): ModelMemberConnection @aws_iam @aws_cognito_user_pools
+  getPayment(id: ID!): Payment @aws_iam @aws_cognito_user_pools
+  listPayments(
+    id: ID
+    filter: ModelPaymentFilterInput
+    limit: Int
+    nextToken: String
+    sortDirection: ModelSortDirection
+  ): ModelPaymentConnection @aws_iam @aws_cognito_user_pools
+}
+
+input ModelMemberConditionInput {
+  name: ModelStringInput
+  address: ModelStringInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  iban: ModelStringInput
+  status: ModelMemberStatusInput
+  machtiging: ModelBooleanInput
+  and: [ModelMemberConditionInput]
+  or: [ModelMemberConditionInput]
+  not: ModelMemberConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  owner: ModelStringInput
+}
+
+input CreateMemberInput {
+  id: ID
+  name: String
+  address: String
+  email: String
+  phone: String
+  iban: String
+  status: MemberStatus
+  machtiging: Boolean
+}
+
+input UpdateMemberInput {
+  id: ID!
+  name: String
+  address: String
+  email: String
+  phone: String
+  iban: String
+  status: MemberStatus
+  machtiging: Boolean
+}
+
+input DeleteMemberInput {
+  id: ID!
+}
+
+type Mutation {
+  createMember(
+    input: CreateMemberInput!
+    condition: ModelMemberConditionInput
+  ): Member @aws_iam @aws_cognito_user_pools
+  updateMember(
+    input: UpdateMemberInput!
+    condition: ModelMemberConditionInput
+  ): Member @aws_iam @aws_cognito_user_pools
+  deleteMember(
+    input: DeleteMemberInput!
+    condition: ModelMemberConditionInput
+  ): Member @aws_iam @aws_cognito_user_pools
+  createPayment(
+    input: CreatePaymentInput!
+    condition: ModelPaymentConditionInput
+  ): Payment @aws_iam @aws_cognito_user_pools
+  updatePayment(
+    input: UpdatePaymentInput!
+    condition: ModelPaymentConditionInput
+  ): Payment @aws_iam @aws_cognito_user_pools
+  deletePayment(
+    input: DeletePaymentInput!
+    condition: ModelPaymentConditionInput
+  ): Payment @aws_iam @aws_cognito_user_pools
+}
+
+input ModelSubscriptionMemberFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  address: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  phone: ModelSubscriptionStringInput
+  iban: ModelSubscriptionStringInput
+  status: ModelSubscriptionStringInput
+  machtiging: ModelSubscriptionBooleanInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionMemberFilterInput]
+  or: [ModelSubscriptionMemberFilterInput]
+  owner: ModelStringInput
+}
+
+type Subscription {
+  onCreateMember(
+    filter: ModelSubscriptionMemberFilterInput
+    owner: String
+  ): Member
+    @aws_subscribe(mutations: ["createMember"])
+    @aws_iam
+    @aws_cognito_user_pools
+  onUpdateMember(
+    filter: ModelSubscriptionMemberFilterInput
+    owner: String
+  ): Member
+    @aws_subscribe(mutations: ["updateMember"])
+    @aws_iam
+    @aws_cognito_user_pools
+  onDeleteMember(
+    filter: ModelSubscriptionMemberFilterInput
+    owner: String
+  ): Member
+    @aws_subscribe(mutations: ["deleteMember"])
+    @aws_iam
+    @aws_cognito_user_pools
+  onCreatePayment(
+    filter: ModelSubscriptionPaymentFilterInput
+    owner: String
+  ): Payment
+    @aws_subscribe(mutations: ["createPayment"])
+    @aws_iam
+    @aws_cognito_user_pools
+  onUpdatePayment(
+    filter: ModelSubscriptionPaymentFilterInput
+    owner: String
+  ): Payment
+    @aws_subscribe(mutations: ["updatePayment"])
+    @aws_iam
+    @aws_cognito_user_pools
+  onDeletePayment(
+    filter: ModelSubscriptionPaymentFilterInput
+    owner: String
+  ): Payment
+    @aws_subscribe(mutations: ["deletePayment"])
+    @aws_iam
+    @aws_cognito_user_pools
+}
+
+type ModelPaymentConnection @aws_iam @aws_cognito_user_pools {
+  items: [Payment]!
+  nextToken: String
+}
+
+input ModelPaymentFilterInput {
+  id: ModelIDInput
+  memberId: ModelIDInput
+  amount: ModelFloatInput
+  date: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelPaymentFilterInput]
+  or: [ModelPaymentFilterInput]
+  not: ModelPaymentFilterInput
+  owner: ModelStringInput
+}
+
+input ModelPaymentConditionInput {
+  memberId: ModelIDInput
+  amount: ModelFloatInput
+  date: ModelStringInput
+  and: [ModelPaymentConditionInput]
+  or: [ModelPaymentConditionInput]
+  not: ModelPaymentConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  owner: ModelStringInput
+}
+
+input CreatePaymentInput {
+  id: ID
+  memberId: ID
+  amount: Float
+  date: String
+}
+
+input UpdatePaymentInput {
+  id: ID!
+  memberId: ID
+  amount: Float
+  date: String
+}
+
+input DeletePaymentInput {
+  id: ID!
+}
+
+input ModelSubscriptionPaymentFilterInput {
+  id: ModelSubscriptionIDInput
+  memberId: ModelSubscriptionIDInput
+  amount: ModelSubscriptionFloatInput
+  date: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionPaymentFilterInput]
+  or: [ModelSubscriptionPaymentFilterInput]
+  owner: ModelStringInput
+}

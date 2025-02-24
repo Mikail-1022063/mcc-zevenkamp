@@ -49,6 +49,13 @@
               "isRequired": false,
               "attributes": []
             },
+            "surname": {
+              "name": "surname",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
             "address": {
               "name": "address",
               "isArray": false,
@@ -92,6 +99,20 @@
               "type": "Boolean",
               "isRequired": false,
               "attributes": []
+            },
+            "payments": {
+              "name": "payments",
+              "isArray": true,
+              "type": {
+                "model": "Payment"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "isArrayNullable": true,
+              "association": {
+                "connectionType": "HAS_MANY",
+                "associatedWith": ["memberId"]
+              }
             },
             "createdAt": {
               "name": "createdAt",
@@ -164,7 +185,7 @@
             "memberId": {
               "name": "memberId",
               "isArray": false,
-              "type": "String",
+              "type": "ID",
               "isRequired": false,
               "attributes": []
             },
@@ -181,6 +202,19 @@
               "type": "String",
               "isRequired": false,
               "attributes": []
+            },
+            "member": {
+              "name": "member",
+              "isArray": false,
+              "type": {
+                "model": "Member"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "association": {
+                "connectionType": "BELONGS_TO",
+                "targetNames": ["memberId"]
+              }
             },
             "createdAt": {
               "name": "createdAt",

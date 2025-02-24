@@ -1052,7 +1052,7 @@
         "FunctionVersion": "2018-05-29",
         "Name": "MutationcreateMemberauth0Function",
         "RequestMappingTemplateS3Location": {
-          "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a433c6f51d09ef1a4fec2476e271e71be81eda28d07c606ace29e11c0840ebb4.vtl"
+          "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a3cef64d993642ab8d75290957cd64eb65e1abddd64d416206dba9e99bb98ce1.vtl"
         },
         "ResponseMappingTemplate": "$util.toJson({})"
       },
@@ -1281,7 +1281,7 @@
           "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/1f5fed297da9c32ae3af922bf3a38ccf23b956078887d16891ec06c20c64722c.vtl"
         },
         "ResponseMappingTemplateS3Location": {
-          "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a90f81e0d9be71a1864c17977b873bac8a31508e7cec145bfbe24755758c3701.vtl"
+          "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/48568680b7917f7aef08644088a0ea63c8bd1991d2aded074a81ff0e222b620d.vtl"
         }
       },
       "DependsOn": ["MemberDataSource"],
@@ -2197,6 +2197,16 @@
             ]
           ]
         }
+      }
+    },
+    "amplifymccmk24sandbox628f053c16dataamplifyDataMemberMemberDataSource1D255631Name": {
+      "Value": {
+        "Fn::GetAtt": ["MemberDataSource", "Name"]
+      }
+    },
+    "amplifymccmk24sandbox628f053c16dataamplifyDataMemberMemberTableE346D4A7TableArn": {
+      "Value": {
+        "Fn::GetAtt": ["MemberTable", "TableArn"]
       }
     }
   }

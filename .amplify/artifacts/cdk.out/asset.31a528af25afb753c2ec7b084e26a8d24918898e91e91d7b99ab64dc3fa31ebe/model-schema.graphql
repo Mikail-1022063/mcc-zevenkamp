@@ -1,0 +1,39 @@
+type Member
+  @model
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "owner" }
+      { allow: groups, groups: ["Admin", "Member"] }
+    ]
+  ) {
+  id: ID! @primaryKey
+  name: String
+  address: String
+  email: String
+  phone: String
+  iban: String
+  status: MemberStatus
+  machtiging: Boolean @default(value: "false")
+  payments: [Payment] @hasMany(references: ["memberId"])
+}
+
+type Payment
+  @model
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "owner" }
+      { allow: groups, groups: ["Admin"] }
+    ]
+  ) {
+  id: ID! @primaryKey
+  memberId: ID
+  amount: Float
+  date: String
+  member: Member @belongsTo(references: ["memberId"])
+}
+
+enum MemberStatus {
+  Active
+  OnHold
+  Inactive
+}

@@ -1,0 +1,254 @@
+{
+  "version": 1,
+  "models": {
+    "Member": {
+      "name": "Member",
+      "fields": {
+        "id": {
+          "name": "id",
+          "isArray": false,
+          "type": "ID",
+          "isRequired": true,
+          "attributes": []
+        },
+        "name": {
+          "name": "name",
+          "isArray": false,
+          "type": "String",
+          "isRequired": false,
+          "attributes": []
+        },
+        "surname": {
+          "name": "surname",
+          "isArray": false,
+          "type": "String",
+          "isRequired": false,
+          "attributes": []
+        },
+        "address": {
+          "name": "address",
+          "isArray": false,
+          "type": "String",
+          "isRequired": false,
+          "attributes": []
+        },
+        "email": {
+          "name": "email",
+          "isArray": false,
+          "type": "String",
+          "isRequired": false,
+          "attributes": []
+        },
+        "phone": {
+          "name": "phone",
+          "isArray": false,
+          "type": "String",
+          "isRequired": false,
+          "attributes": []
+        },
+        "iban": {
+          "name": "iban",
+          "isArray": false,
+          "type": "String",
+          "isRequired": false,
+          "attributes": []
+        },
+        "status": {
+          "name": "status",
+          "isArray": false,
+          "type": {
+            "enum": "MemberStatus"
+          },
+          "isRequired": false,
+          "attributes": []
+        },
+        "machtiging": {
+          "name": "machtiging",
+          "isArray": false,
+          "type": "Boolean",
+          "isRequired": false,
+          "attributes": []
+        },
+        "payments": {
+          "name": "payments",
+          "isArray": true,
+          "type": {
+            "model": "Payment"
+          },
+          "isRequired": false,
+          "attributes": [],
+          "isArrayNullable": true,
+          "association": {
+            "connectionType": "HAS_MANY",
+            "associatedWith": ["memberId"]
+          }
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "isArray": false,
+          "type": "AWSDateTime",
+          "isRequired": false,
+          "attributes": [],
+          "isReadOnly": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "isArray": false,
+          "type": "AWSDateTime",
+          "isRequired": false,
+          "attributes": [],
+          "isReadOnly": true
+        }
+      },
+      "syncable": true,
+      "pluralName": "Members",
+      "attributes": [
+        {
+          "type": "model",
+          "properties": {}
+        },
+        {
+          "type": "key",
+          "properties": {
+            "fields": ["id"]
+          }
+        },
+        {
+          "type": "auth",
+          "properties": {
+            "rules": [
+              {
+                "provider": "userPools",
+                "ownerField": "owner",
+                "allow": "owner",
+                "identityClaim": "cognito:username",
+                "operations": ["create", "update", "delete", "read"]
+              },
+              {
+                "groupClaim": "cognito:groups",
+                "provider": "userPools",
+                "allow": "groups",
+                "groups": ["Admin", "Member"],
+                "operations": ["create", "update", "delete", "read"]
+              }
+            ]
+          }
+        }
+      ],
+      "primaryKeyInfo": {
+        "isCustomPrimaryKey": false,
+        "primaryKeyFieldName": "id",
+        "sortKeyFieldNames": []
+      }
+    },
+    "Payment": {
+      "name": "Payment",
+      "fields": {
+        "id": {
+          "name": "id",
+          "isArray": false,
+          "type": "ID",
+          "isRequired": true,
+          "attributes": []
+        },
+        "memberId": {
+          "name": "memberId",
+          "isArray": false,
+          "type": "ID",
+          "isRequired": false,
+          "attributes": []
+        },
+        "amount": {
+          "name": "amount",
+          "isArray": false,
+          "type": "Float",
+          "isRequired": false,
+          "attributes": []
+        },
+        "date": {
+          "name": "date",
+          "isArray": false,
+          "type": "String",
+          "isRequired": false,
+          "attributes": []
+        },
+        "member": {
+          "name": "member",
+          "isArray": false,
+          "type": {
+            "model": "Member"
+          },
+          "isRequired": false,
+          "attributes": [],
+          "association": {
+            "connectionType": "BELONGS_TO",
+            "targetNames": ["memberId"]
+          }
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "isArray": false,
+          "type": "AWSDateTime",
+          "isRequired": false,
+          "attributes": [],
+          "isReadOnly": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "isArray": false,
+          "type": "AWSDateTime",
+          "isRequired": false,
+          "attributes": [],
+          "isReadOnly": true
+        }
+      },
+      "syncable": true,
+      "pluralName": "Payments",
+      "attributes": [
+        {
+          "type": "model",
+          "properties": {}
+        },
+        {
+          "type": "key",
+          "properties": {
+            "fields": ["id"]
+          }
+        },
+        {
+          "type": "auth",
+          "properties": {
+            "rules": [
+              {
+                "provider": "userPools",
+                "ownerField": "owner",
+                "allow": "owner",
+                "identityClaim": "cognito:username",
+                "operations": ["create", "update", "delete", "read"]
+              },
+              {
+                "groupClaim": "cognito:groups",
+                "provider": "userPools",
+                "allow": "groups",
+                "groups": ["Admin"],
+                "operations": ["create", "update", "delete", "read"]
+              }
+            ]
+          }
+        }
+      ],
+      "primaryKeyInfo": {
+        "isCustomPrimaryKey": false,
+        "primaryKeyFieldName": "id",
+        "sortKeyFieldNames": []
+      }
+    }
+  },
+  "enums": {
+    "MemberStatus": {
+      "name": "MemberStatus",
+      "values": ["Active", "OnHold", "Inactive"]
+    }
+  },
+  "nonModels": {}
+}
